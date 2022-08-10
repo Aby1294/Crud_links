@@ -1,0 +1,164 @@
+--------------------------------------------------------
+-- Archivo creado  - jueves-agosto-12-2021   
+--------------------------------------------------------
+--------------------------------------------------------
+--  DDL for Sequence UNOENUNO
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "ESTUDIANTE"."UNOENUNO"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 61 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
+--------------------------------------------------------
+--  DDL for Sequence UNOENUNOLINK
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "ESTUDIANTE"."UNOENUNOLINK"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 81 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
+--------------------------------------------------------
+--  DDL for Table CATEGORIA
+--------------------------------------------------------
+
+  CREATE TABLE "ESTUDIANTE"."CATEGORIA" 
+   (	"ID" NUMBER, 
+	"NOMBRE" VARCHAR2(40 BYTE), 
+	"FECHA" DATE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+ NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Table ENLACE
+--------------------------------------------------------
+
+  CREATE TABLE "ESTUDIANTE"."ENLACE" 
+   (	"ID" NUMBER, 
+	"ENLACE" VARCHAR2(255 BYTE), 
+	"DESCRIPCION" VARCHAR2(255 BYTE), 
+	"FECHA" DATE, 
+	"CATEGORIA_ID" NUMBER(*,0)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+ NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+REM INSERTING into ESTUDIANTE.CATEGORIA
+SET DEFINE OFF;
+Insert into ESTUDIANTE.CATEGORIA (ID,NOMBRE,FECHA) values ('4','Desarrollo Android',to_date('01/07/21','DD/MM/RR'));
+Insert into ESTUDIANTE.CATEGORIA (ID,NOMBRE,FECHA) values ('2','Marketing digital',to_date('30/06/21','DD/MM/RR'));
+REM INSERTING into ESTUDIANTE.ENLACE
+SET DEFINE OFF;
+Insert into ESTUDIANTE.ENLACE (ID,ENLACE,DESCRIPCION,FECHA,CATEGORIA_ID) values ('1','https://render2web.com','test descripcion',to_date('30/06/21','DD/MM/RR'),'4');
+Insert into ESTUDIANTE.ENLACE (ID,ENLACE,DESCRIPCION,FECHA,CATEGORIA_ID) values ('22','https://www.youtube.com/render2web','Test descripción',to_date('03/07/21','DD/MM/RR'),'2');
+Insert into ESTUDIANTE.ENLACE (ID,ENLACE,DESCRIPCION,FECHA,CATEGORIA_ID) values ('42','https://www.youtube.com/render2web2','test descripcion2',to_date('09/07/21','DD/MM/RR'),'24');
+--------------------------------------------------------
+--  DDL for Index LINKS_PK
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "ESTUDIANTE"."LINKS_PK" ON "ESTUDIANTE"."ENLACE" ("ID") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Index SYS_C007419
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "ESTUDIANTE"."SYS_C007419" ON "ESTUDIANTE"."CATEGORIA" ("ID") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Index SYS_C007419
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "ESTUDIANTE"."SYS_C007419" ON "ESTUDIANTE"."CATEGORIA" ("ID") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Index LINKS_PK
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "ESTUDIANTE"."LINKS_PK" ON "ESTUDIANTE"."ENLACE" ("ID") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Trigger TRIGGERINCREMENTO
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE TRIGGER "ESTUDIANTE"."TRIGGERINCREMENTO" 
+before insert on categoria
+for each row
+begin
+select unoenuno.NEXTVAL INTO :NEW.id from DUAL ;
+END;
+/
+ALTER TRIGGER "ESTUDIANTE"."TRIGGERINCREMENTO" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger TRIGGERINCREMENTO2
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE TRIGGER "ESTUDIANTE"."TRIGGERINCREMENTO2" 
+before insert on "ENLACE"
+for each row
+begin
+select unoenunolink.NEXTVAL INTO :NEW.id from DUAL ;
+END;
+/
+ALTER TRIGGER "ESTUDIANTE"."TRIGGERINCREMENTO2" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger TRIGGERINCREMENTO
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE TRIGGER "ESTUDIANTE"."TRIGGERINCREMENTO" 
+before insert on categoria
+for each row
+begin
+select unoenuno.NEXTVAL INTO :NEW.id from DUAL ;
+END;
+/
+ALTER TRIGGER "ESTUDIANTE"."TRIGGERINCREMENTO" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger TRIGGERINCREMENTO2
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE TRIGGER "ESTUDIANTE"."TRIGGERINCREMENTO2" 
+before insert on "ENLACE"
+for each row
+begin
+select unoenunolink.NEXTVAL INTO :NEW.id from DUAL ;
+END;
+/
+ALTER TRIGGER "ESTUDIANTE"."TRIGGERINCREMENTO2" ENABLE;
+--------------------------------------------------------
+--  Constraints for Table CATEGORIA
+--------------------------------------------------------
+
+  ALTER TABLE "ESTUDIANTE"."CATEGORIA" ADD PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS"  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table ENLACE
+--------------------------------------------------------
+
+  ALTER TABLE "ESTUDIANTE"."ENLACE" MODIFY ("ID" NOT NULL ENABLE);
+  ALTER TABLE "ESTUDIANTE"."ENLACE" MODIFY ("ENLACE" NOT NULL ENABLE);
+  ALTER TABLE "ESTUDIANTE"."ENLACE" ADD CONSTRAINT "LINKS_PK" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS"  ENABLE;
